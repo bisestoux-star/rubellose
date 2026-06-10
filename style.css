@@ -63,7 +63,7 @@ html, body {
 .coin-button {
   position: absolute;
   right: 7%;
-  bottom: 7%;
+  bottom: 20%;
   width: 22%;
   aspect-ratio: 1;
   border: 0;
