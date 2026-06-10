@@ -7,11 +7,15 @@ let scratchReady = false;
 let isDrawing = false;
 let lastPoint = null;
 
+// Rubbel-Schicht direkt beim Laden vorbereiten,
+// damit die Nachricht nie kurz sichtbar ist.
+window.addEventListener('load', initScratchCard);
+
 coinButton.addEventListener('click', () => {
   coinButton.classList.add('is-tapped');
+
   window.setTimeout(() => {
     card.classList.add('is-flipped');
-    window.setTimeout(initScratchCard, 500);
   }, 350);
 });
 
@@ -38,8 +42,10 @@ window.addEventListener('resize', () => {
 function resizeCanvas() {
   const rect = canvas.getBoundingClientRect();
   const dpr = window.devicePixelRatio || 1;
+
   canvas.width = Math.round(rect.width * dpr);
   canvas.height = Math.round(rect.height * dpr);
+
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 
@@ -51,52 +57,63 @@ function drawHeartOverlay() {
   ctx.clearRect(0, 0, w, h);
   ctx.globalCompositeOperation = 'source-over';
 
+  // Herzform
   ctx.save();
   heartPath(ctx, w, h);
   ctx.clip();
 
-  // Goldene Rubbel-Fläche
-  const gradient = ctx.createLinearGradient(0, 0, w, h);
-  gradient.addColorStop(0, '#d9bd7a');
-  gradient.addColorStop(0.5, '#c5a365');
-  gradient.addColorStop(1, '#e0c988');
-  ctx.fillStyle = gradient;
+  // Glatte goldene Rubbel-Fläche ohne Schraffierung
+  ctx.fillStyle = '#c7ad75';
   ctx.fillRect(0, 0, w, h);
 
-  // dezenter Rubbelkarten-Schimmer
-  ctx.globalAlpha = 0.18;
-  for (let i = -w; i < w * 2; i += 18) {
-    ctx.beginPath();
-    ctx.moveTo(i, 0);
-    ctx.lineTo(i + h, h);
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 7;
-    ctx.stroke();
-  }
-  ctx.globalAlpha = 1;
-
-  // Rand
   ctx.restore();
+
+  // Dezenter Rand wie in deiner Vorlage
   ctx.save();
   heartPath(ctx, w, h);
   ctx.strokeStyle = '#7b0008';
-  ctx.lineWidth = 1.4;
+  ctx.lineWidth = 1.2;
   ctx.stroke();
   ctx.restore();
 }
 
 function heartPath(context, w, h) {
   context.beginPath();
-  context.moveTo(w / 2, h * 0.95);
-  context.bezierCurveTo(w * 0.05, h * 0.58, w * 0.00, h * 0.25, w * 0.24, h * 0.08);
-  context.bezierCurveTo(w * 0.38, h * -0.02, w * 0.50, h * 0.12, w / 2, h * 0.20);
-  context.bezierCurveTo(w * 0.50, h * 0.12, w * 0.62, h * -0.02, w * 0.76, h * 0.08);
-  context.bezierCurveTo(w * 1.00, h * 0.25, w * 0.95, h * 0.58, w / 2, h * 0.95);
+
+  // Etwas natürlichere Herzform, näher an deinem SVG:
+  // breiter oben, Spitze unten, weniger gestaucht.
+  context.moveTo(w / 2, h * 0.96);
+
+  context.bezierCurveTo(
+    w * 0.08, h * 0.62,
+    w * 0.00, h * 0.28,
+    w * 0.22, h * 0.10
+  );
+
+  context.bezierCurveTo(
+    w * 0.36, h * -0.02,
+    w * 0.49, h * 0.08,
+    w / 2, h * 0.22
+  );
+
+  context.bezierCurveTo(
+    w * 0.51, h * 0.08,
+    w * 0.64, h * -0.02,
+    w * 0.78, h * 0.10
+  );
+
+  context.bezierCurveTo(
+    w * 1.00, h * 0.28,
+    w * 0.92, h * 0.62,
+    w / 2, h * 0.96
+  );
+
   context.closePath();
 }
 
 function getPoint(event) {
   const rect = canvas.getBoundingClientRect();
+
   return {
     x: event.clientX - rect.left,
     y: event.clientY - rect.top
