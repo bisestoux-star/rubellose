@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Rubellos öffnen</title>
+
+  <!-- WhatsApp / iMessage Vorschau -->
+  <meta property="og:title" content="Rubellos öffnen" />
+  <meta property="og:description" content="Tippe auf den Link und öffne deine persönliche Nachricht." />
+  <meta property="og:image" content="assets/Vorschau_deusch.svg" />
+  <meta property="og:type" content="website" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="card-scene" aria-label="Digitales Rubellos">
+      <div class="card" id="card">
+        <div class="card-face card-front">
+          <img src="assets/Rubellos_vorne.svg" alt="Anleitung zum Rubellos" class="card-image" />
+          <button id="coinButton" class="coin-button" aria-label="Münze antippen und Karte umdrehen">
+            <img src="assets/emblem coin.svg" alt="Münze" />
+          </button>
+        </div>
+
+        <div class="card-face card-back">
+          <img src="assets/Teamlos.svg" alt="Teamlos" class="card-image" />
+          <canvas id="scratchCanvas" aria-label="Herz freirubbeln"></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
