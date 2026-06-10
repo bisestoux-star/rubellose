@@ -63,7 +63,7 @@ function drawHeartOverlay() {
   ctx.clip();
 
   // Glatte goldene Rubbel-Fläche ohne Schraffierung
-  ctx.fillStyle = '#c7ad75';
+  ctx.fillStyle = '#C3A36E';
   ctx.fillRect(0, 0, w, h);
 
   ctx.restore();
