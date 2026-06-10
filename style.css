@@ -102,9 +102,9 @@ html, body {
   position: absolute;
   /* Position des Herzens. Bei Bedarf hier feinjustieren. */
   left: 21%;
-  top: 52%;
+  top: 42%;
   width: 55%;
-  height: 38%;
+  height: 30%;
   touch-action: none;
 }
 
