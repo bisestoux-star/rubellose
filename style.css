@@ -1,0 +1,113 @@
+:root {
+  --background: #f7f3ef;
+  --shadow: 0 18px 45px rgba(60, 30, 30, 0.18);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--background);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.card-scene {
+  width: min(92vw, 430px);
+  perspective: 1400px;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1080 / 1440;
+  transform-style: preserve-3d;
+  transition: transform 900ms cubic-bezier(.2,.8,.2,1);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+}
+
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background: white;
+  border-radius: 4px;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.coin-button {
+  position: absolute;
+  right: 7%;
+  bottom: 7%;
+  width: 22%;
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 0;
+  box-shadow: 0 8px 22px rgba(0,0,0,.18);
+  cursor: pointer;
+  animation: coinPulse 1.8s infinite;
+  touch-action: manipulation;
+}
+
+.coin-button img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.coin-button.is-tapped {
+  animation: coinSpin 500ms ease forwards;
+}
+
+@keyframes coinPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.07) rotate(-3deg); }
+}
+
+@keyframes coinSpin {
+  from { transform: scale(1.05) rotate(0deg); opacity: 1; }
+  to { transform: scale(.4) rotate(360deg); opacity: 0; }
+}
+
+#scratchCanvas {
+  position: absolute;
+  /* Position des Herzens. Bei Bedarf hier feinjustieren. */
+  left: 21%;
+  top: 34%;
+  width: 58%;
+  height: 28%;
+  touch-action: none;
+}
+
+@media (max-height: 680px) {
+  .card-scene { width: min(82vw, 360px); }
+}
